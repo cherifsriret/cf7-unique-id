@@ -8,6 +8,7 @@ Text Domain: cf7-submission-id
 */
 
 require __DIR__ . '/includes/submission_id.php';
+require __DIR__ . '/includes/current_url.php';
 
 /**
  * Function init plugin
@@ -15,6 +16,11 @@ require __DIR__ . '/includes/submission_id.php';
 function cf7_submission_id_init(){
     wpcf7_add_form_tag('submission_id','cf7_submission_id_uid_form_tag_handler', true );
     wpcf7_add_form_tag('submission_id_hidden','cf7_submission_id_uid_form_tag_handler', true );
+
+	//current url 
+	wpcf7_add_form_tag('current_url','cf7_current_url_form_tag_handler', true );
+    wpcf7_add_form_tag('current_url_hidden','cf7_current_url_form_tag_handler', true );
+
     add_action( 'admin_notices', 'cf7_submission_id_admin_notice' );
 }
 add_action( 'plugins_loaded', 'cf7_submission_id_init' , 20 );
@@ -35,6 +41,7 @@ add_action( 'wpcf7_admin_init', 'cf7_submission_id_add_tag_generator_id_field', 
 function cf7_submission_id_add_tag_generator_id_field() {
     $tag_generator = WPCF7_TagGenerator::get_instance();
     $tag_generator->add( 'submission_id', __( 'submission id', 'contact-form-7' ), 'cf7_submission_id_tag_uid_field' );
+    $tag_generator->add( 'current_url', __( 'Current URL', 'contact-form-7' ), 'cf7_current_url_tag_uid_field' );
 }
 
 //Find the correct value to store in form data
